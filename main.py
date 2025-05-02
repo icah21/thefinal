@@ -8,7 +8,7 @@ from camera_dashboard import camera_dashboard
 # Initialize IR sensor, stepper motor, and servo
 ir_sensor = IRSensor(pin=17)
 motor = StepperMotor(in1=18, in2=23, in3=24, in4=25)
-servo = ServoController(pin=12)  # Update pin if needed
+servo = ServoController(pin=13)  # Update pin if needed
 
 # Shared state
 current_angle = 0
