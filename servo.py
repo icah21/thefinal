@@ -7,16 +7,16 @@ class ServoController:
         self.pin = pin
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.pin, GPIO.OUT)
-        self.pwm = GPIO.PWM(self.pin, 50)  # 50Hz for SG90
+        self.pwm = GPIO.PWM(self.pin, 50)
         self.pwm.start(0)
         self.lock = threading.Lock()
 
     def set_angle(self, angle):
-        duty = 2 + (angle + 90) * 10 / 180  # Convert angle to duty cycle
+        duty = 2 + (angle + 90) * 10 / 180
         with self.lock:
             self.pwm.ChangeDutyCycle(duty)
             time.sleep(0.5)
-            self.pwm.ChangeDutyCycle(0)  # Stop signal to prevent jitter
+            self.pwm.ChangeDutyCycle(0)
 
     def rotate_to_sort(self, bean_type):
         angle_map = {
@@ -31,5 +31,6 @@ class ServoController:
         self.set_angle(0)
 
     def cleanup(self):
+        self.pwm.ChangeDutyCycle(0)
+        time.sleep(0.2)
         self.pwm.stop()
-        GPIO.cleanup()

@@ -19,11 +19,11 @@ class StepperMotor:
             [0, 0, 0, 1],
             [1, 0, 0, 1]
         ]
-        self.steps_per_rev = 512  # 360 degrees
+        self.steps_per_rev = 512
 
     def rotate(self, step_count):
         steps = abs(step_count)
-        delay = 0.002  # always positive
+        delay = 0.002
         direction = 1 if step_count > 0 else -1
 
         for _ in range(steps):
@@ -33,7 +33,7 @@ class StepperMotor:
                 time.sleep(delay)
 
     def go_to_angle(self, current_angle, target_angle):
-        step_angle = 360 / self.steps_per_rev  # about 0.703 degrees per step
+        step_angle = 360 / self.steps_per_rev
         delta_angle = target_angle - current_angle
         step_count = int(delta_angle / step_angle)
         self.rotate(step_count)
